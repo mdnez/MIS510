@@ -1,0 +1,401 @@
+MIS 510 Portfolio Project Option 1
+Maurica Nez
+2022-10-09
+#Load data set and exploration of data set
+GermanCredit.df <- read.csv("GermanCredit.csv", header= TRUE)
+View(GermanCredit.df) # View data set in a new tab
+dim(GermanCredit.df) # Display the # of observations and variables
+## [1] 1000   32
+summary(GermanCredit.df) # simple statistics of each variable
+##       OBS.           CHK_ACCT        DURATION       HISTORY     
+##  Min.   :   1.0   Min.   :0.000   Min.   : 4.0   Min.   :0.000  
+##  1st Qu.: 250.8   1st Qu.:0.000   1st Qu.:12.0   1st Qu.:2.000  
+##  Median : 500.5   Median :1.000   Median :18.0   Median :2.000  
+##  Mean   : 500.5   Mean   :1.577   Mean   :20.9   Mean   :2.545  
+##  3rd Qu.: 750.2   3rd Qu.:3.000   3rd Qu.:24.0   3rd Qu.:4.000  
+##  Max.   :1000.0   Max.   :3.000   Max.   :72.0   Max.   :4.000  
+##     NEW_CAR         USED_CAR       FURNITURE        RADIO.TV      EDUCATION   
+##  Min.   :0.000   Min.   :0.000   Min.   :0.000   Min.   :0.00   Min.   :0.00  
+##  1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.00   1st Qu.:0.00  
+##  Median :0.000   Median :0.000   Median :0.000   Median :0.00   Median :0.00  
+##  Mean   :0.234   Mean   :0.103   Mean   :0.181   Mean   :0.28   Mean   :0.05  
+##  3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:1.00   3rd Qu.:0.00  
+##  Max.   :1.000   Max.   :1.000   Max.   :1.000   Max.   :1.00   Max.   :1.00  
+##    RETRAINING        AMOUNT         SAV_ACCT       EMPLOYMENT   
+##  Min.   :0.000   Min.   :  250   Min.   :0.000   Min.   :0.000  
+##  1st Qu.:0.000   1st Qu.: 1366   1st Qu.:0.000   1st Qu.:2.000  
+##  Median :0.000   Median : 2320   Median :0.000   Median :2.000  
+##  Mean   :0.097   Mean   : 3271   Mean   :1.105   Mean   :2.384  
+##  3rd Qu.:0.000   3rd Qu.: 3972   3rd Qu.:2.000   3rd Qu.:4.000  
+##  Max.   :1.000   Max.   :18424   Max.   :4.000   Max.   :4.000  
+##   INSTALL_RATE      MALE_DIV     MALE_SINGLE    MALE_MAR_or_WID  CO.APPLICANT  
+##  Min.   :1.000   Min.   :0.00   Min.   :0.000   Min.   :0.000   Min.   :0.000  
+##  1st Qu.:2.000   1st Qu.:0.00   1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.000  
+##  Median :3.000   Median :0.00   Median :1.000   Median :0.000   Median :0.000  
+##  Mean   :2.973   Mean   :0.05   Mean   :0.548   Mean   :0.092   Mean   :0.041  
+##  3rd Qu.:4.000   3rd Qu.:0.00   3rd Qu.:1.000   3rd Qu.:0.000   3rd Qu.:0.000  
+##  Max.   :4.000   Max.   :1.00   Max.   :1.000   Max.   :1.000   Max.   :1.000  
+##    GUARANTOR     PRESENT_RESIDENT  REAL_ESTATE    PROP_UNKN_NONE 
+##  Min.   :0.000   Min.   :1.000    Min.   :0.000   Min.   :0.000  
+##  1st Qu.:0.000   1st Qu.:2.000    1st Qu.:0.000   1st Qu.:0.000  
+##  Median :0.000   Median :3.000    Median :0.000   Median :0.000  
+##  Mean   :0.052   Mean   :2.845    Mean   :0.282   Mean   :0.154  
+##  3rd Qu.:0.000   3rd Qu.:4.000    3rd Qu.:1.000   3rd Qu.:0.000  
+##  Max.   :1.000   Max.   :4.000    Max.   :1.000   Max.   :1.000  
+##       AGE        OTHER_INSTALL        RENT          OWN_RES     
+##  Min.   :19.00   Min.   :0.000   Min.   :0.000   Min.   :0.000  
+##  1st Qu.:27.00   1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.000  
+##  Median :33.00   Median :0.000   Median :0.000   Median :1.000  
+##  Mean   :35.55   Mean   :0.186   Mean   :0.179   Mean   :0.713  
+##  3rd Qu.:42.00   3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:1.000  
+##  Max.   :75.00   Max.   :1.000   Max.   :1.000   Max.   :1.000  
+##   NUM_CREDITS         JOB        NUM_DEPENDENTS    TELEPHONE    
+##  Min.   :1.000   Min.   :0.000   Min.   :1.000   Min.   :0.000  
+##  1st Qu.:1.000   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:0.000  
+##  Median :1.000   Median :2.000   Median :1.000   Median :0.000  
+##  Mean   :1.407   Mean   :1.904   Mean   :1.155   Mean   :0.404  
+##  3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:1.000   3rd Qu.:1.000  
+##  Max.   :4.000   Max.   :3.000   Max.   :2.000   Max.   :1.000  
+##     FOREIGN         RESPONSE  
+##  Min.   :0.000   Min.   :0.0  
+##  1st Qu.:0.000   1st Qu.:0.0  
+##  Median :0.000   Median :1.0  
+##  Mean   :0.037   Mean   :0.7  
+##  3rd Qu.:0.000   3rd Qu.:1.0  
+##  Max.   :1.000   Max.   :1.0
+head(GermanCredit.df) # view first 6 rows 
+##   OBS. CHK_ACCT DURATION HISTORY NEW_CAR USED_CAR FURNITURE RADIO.TV EDUCATION
+## 1    1        0        6       4       0        0         0        1         0
+## 2    2        1       48       2       0        0         0        1         0
+## 3    3        3       12       4       0        0         0        0         1
+## 4    4        0       42       2       0        0         1        0         0
+## 5    5        0       24       3       1        0         0        0         0
+## 6    6        3       36       2       0        0         0        0         1
+##   RETRAINING AMOUNT SAV_ACCT EMPLOYMENT INSTALL_RATE MALE_DIV MALE_SINGLE
+## 1          0   1169        4          4            4        0           1
+## 2          0   5951        0          2            2        0           0
+## 3          0   2096        0          3            2        0           1
+## 4          0   7882        0          3            2        0           1
+## 5          0   4870        0          2            3        0           1
+## 6          0   9055        4          2            2        0           1
+##   MALE_MAR_or_WID CO.APPLICANT GUARANTOR PRESENT_RESIDENT REAL_ESTATE
+## 1               0            0         0                4           1
+## 2               0            0         0                2           1
+## 3               0            0         0                3           1
+## 4               0            0         1                4           0
+## 5               0            0         0                4           0
+## 6               0            0         0                4           0
+##   PROP_UNKN_NONE AGE OTHER_INSTALL RENT OWN_RES NUM_CREDITS JOB NUM_DEPENDENTS
+## 1              0  67             0    0       1           2   2              1
+## 2              0  22             0    0       1           1   2              1
+## 3              0  49             0    0       1           1   1              2
+## 4              0  45             0    0       0           1   2              2
+## 5              1  53             0    0       0           2   2              2
+## 6              1  35             0    0       0           1   1              2
+##   TELEPHONE FOREIGN RESPONSE
+## 1         1       0        1
+## 2         0       0        0
+## 3         0       0        1
+## 4         0       0        1
+## 5         0       0        0
+## 6         1       0        1
+GermanCredit.df[1:10,32] #Show the first 10 rows of the Response Variable
+##  [1] 1 0 1 1 0 1 1 1 1 0
+#Create Dummy Variables #Convert Binary and Categorical Variables
+GCdummy <- model.matrix(~ 0 + ., data = GermanCredit.df)
+GCdummy <- as.data.frame(GCdummy) #Convert Dummy Variables into a Data Frame
+t(t(names(GCdummy))) #Verify names of Dummy data frame
+##       [,1]              
+##  [1,] "OBS."            
+##  [2,] "CHK_ACCT"        
+##  [3,] "DURATION"        
+##  [4,] "HISTORY"         
+##  [5,] "NEW_CAR"         
+##  [6,] "USED_CAR"        
+##  [7,] "FURNITURE"       
+##  [8,] "RADIO.TV"        
+##  [9,] "EDUCATION"       
+## [10,] "RETRAINING"      
+## [11,] "AMOUNT"          
+## [12,] "SAV_ACCT"        
+## [13,] "EMPLOYMENT"      
+## [14,] "INSTALL_RATE"    
+## [15,] "MALE_DIV"        
+## [16,] "MALE_SINGLE"     
+## [17,] "MALE_MAR_or_WID" 
+## [18,] "CO.APPLICANT"    
+## [19,] "GUARANTOR"       
+## [20,] "PRESENT_RESIDENT"
+## [21,] "REAL_ESTATE"     
+## [22,] "PROP_UNKN_NONE"  
+## [23,] "AGE"             
+## [24,] "OTHER_INSTALL"   
+## [25,] "RENT"            
+## [26,] "OWN_RES"         
+## [27,] "NUM_CREDITS"     
+## [28,] "JOB"             
+## [29,] "NUM_DEPENDENTS"  
+## [30,] "TELEPHONE"       
+## [31,] "FOREIGN"         
+## [32,] "RESPONSE"
+head(GCdummy) #Verify Conversion
+##   OBS. CHK_ACCT DURATION HISTORY NEW_CAR USED_CAR FURNITURE RADIO.TV EDUCATION
+## 1    1        0        6       4       0        0         0        1         0
+## 2    2        1       48       2       0        0         0        1         0
+## 3    3        3       12       4       0        0         0        0         1
+## 4    4        0       42       2       0        0         1        0         0
+## 5    5        0       24       3       1        0         0        0         0
+## 6    6        3       36       2       0        0         0        0         1
+##   RETRAINING AMOUNT SAV_ACCT EMPLOYMENT INSTALL_RATE MALE_DIV MALE_SINGLE
+## 1          0   1169        4          4            4        0           1
+## 2          0   5951        0          2            2        0           0
+## 3          0   2096        0          3            2        0           1
+## 4          0   7882        0          3            2        0           1
+## 5          0   4870        0          2            3        0           1
+## 6          0   9055        4          2            2        0           1
+##   MALE_MAR_or_WID CO.APPLICANT GUARANTOR PRESENT_RESIDENT REAL_ESTATE
+## 1               0            0         0                4           1
+## 2               0            0         0                2           1
+## 3               0            0         0                3           1
+## 4               0            0         1                4           0
+## 5               0            0         0                4           0
+## 6               0            0         0                4           0
+##   PROP_UNKN_NONE AGE OTHER_INSTALL RENT OWN_RES NUM_CREDITS JOB NUM_DEPENDENTS
+## 1              0  67             0    0       1           2   2              1
+## 2              0  22             0    0       1           1   2              1
+## 3              0  49             0    0       1           1   1              2
+## 4              0  45             0    0       0           1   2              2
+## 5              1  53             0    0       0           2   2              2
+## 6              1  35             0    0       0           1   1              2
+##   TELEPHONE FOREIGN RESPONSE
+## 1         1       0        1
+## 2         0       0        0
+## 3         0       0        1
+## 4         0       0        1
+## 5         0       0        0
+## 6         1       0        1
+GCdummy <- GCdummy[, -15:-17] #Remove columns 15 to 17 to clean data frame
+#Load rpart and rpart.plot to prepare for data mining
+library(rpart)
+library(rpart.plot)
+## Warning: package 'rpart.plot' was built under R version 4.1.3
+library(caret)
+## Warning: package 'caret' was built under R version 4.1.3
+## Loading required package: ggplot2
+## Warning: package 'ggplot2' was built under R version 4.1.3
+## Loading required package: lattice
+#Divide the data into training and validation partitions #Partition Preparation
+set.seed(1) #To reproduce the same output of simulation studies
+#Create partition
+train.index <- sample(c(1:dim(GCdummy)[1]), 
+                             dim(GCdummy)[1]*0.6) #Sample main data frame
+train.df <- GCdummy[train.index, ] #Training partition
+valid.df <- GCdummy[-train.index, ] #Validation partition
+#Create CART Model #Build Classification Tree Using Training data and display tree
+GC.Tree <- rpart(RESPONSE ~ .,
+                 data  = train.df, method = "class", minbucket = 20) #Model
+#plot tree for training data
+prp(GC.Tree) #Display Training Data Tree
+  #Build CART using Validation data
+GC.Tree.Valid <- rpart(RESPONSE ~ .,
+                       data  = valid.df, method = "class", minbucket = 20) #Model
+#Plot for Validation data
+prp(GC.Tree.Valid) #Display Validation data Tree
+  #Performance Evaluation of CART #Confusion Matrix using table()
+GC.Tree.Predict <- predict(GC.Tree, newdata = train.df, type = "class")
+table(GC.Tree.Predict)
+## GC.Tree.Predict
+##   0   1 
+## 110 490
+GC.Tree.Predict.Valid <- predict(GC.Tree.Valid, newdata= valid.df, type = "class")
+table(GC.Tree.Predict.Valid)
+## GC.Tree.Predict.Valid
+##   0   1 
+##  67 333
+#Accuracy Calculations
+table(train.df$RESPONSE, GC.Tree.Predict)
+##    GC.Tree.Predict
+##       0   1
+##   0  78 101
+##   1  32 389
+(111+351)/(111+90+48+351) #Determine Accuracy of training tree
+## [1] 0.77
+table(valid.df$RESPONSE, GC.Tree.Predict.Valid)
+##    GC.Tree.Predict.Valid
+##       0   1
+##   0  49  72
+##   1  18 261
+(46+281)/(46+53+20+281) #Determine Accuracy of Validation Tree
+## [1] 0.8175
+#Neural Network #Install packages #Load Libraris
+install.packages("jsonlite", repos = "http://cran.us.r-project.org")
+## Installing package into 'C:/Users/mdn34/Documents/R/win-library/4.1'
+## (as 'lib' is unspecified)
+## package 'jsonlite' successfully unpacked and MD5 sums checked
+## Warning: cannot remove prior installation of package 'jsonlite'
+## Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying C:
+## \Users\mdn34\Documents\R\win-library\4.1\00LOCK\jsonlite\libs\x64\jsonlite.dll
+## to C:\Users\mdn34\Documents\R\win-library\4.1\jsonlite\libs\x64\jsonlite.dll:
+## Permission denied
+## Warning: restored 'jsonlite'
+## 
+## The downloaded binary packages are in
+##  C:\Users\mdn34\AppData\Local\Temp\RtmpaQVkDj\downloaded_packages
+library(jsonlite)
+## Warning: package 'jsonlite' was built under R version 4.1.3
+install.packages("neuralnet", repos = "http://cran.us.r-project.org")
+## Installing package into 'C:/Users/mdn34/Documents/R/win-library/4.1'
+## (as 'lib' is unspecified)
+## package 'neuralnet' successfully unpacked and MD5 sums checked
+## 
+## The downloaded binary packages are in
+##  C:\Users\mdn34\AppData\Local\Temp\RtmpaQVkDj\downloaded_packages
+library(neuralnet)
+## Warning: package 'neuralnet' was built under R version 4.1.3
+library(nnet)
+library(caret)
+#Partition data
+set.seed(2)
+#Create Dummy Variables #Convert Binary and Categorical Variables
+GCdummynn <- model.matrix(~ 0 + ., data = GermanCredit.df)
+GCdummynn <- as.data.frame(GCdummynn) #Convert Dummy Variables into a Data Frame
+t(t(names(GCdummynn))) #Verify names of Dummy data frame
+##       [,1]              
+##  [1,] "OBS."            
+##  [2,] "CHK_ACCT"        
+##  [3,] "DURATION"        
+##  [4,] "HISTORY"         
+##  [5,] "NEW_CAR"         
+##  [6,] "USED_CAR"        
+##  [7,] "FURNITURE"       
+##  [8,] "RADIO.TV"        
+##  [9,] "EDUCATION"       
+## [10,] "RETRAINING"      
+## [11,] "AMOUNT"          
+## [12,] "SAV_ACCT"        
+## [13,] "EMPLOYMENT"      
+## [14,] "INSTALL_RATE"    
+## [15,] "MALE_DIV"        
+## [16,] "MALE_SINGLE"     
+## [17,] "MALE_MAR_or_WID" 
+## [18,] "CO.APPLICANT"    
+## [19,] "GUARANTOR"       
+## [20,] "PRESENT_RESIDENT"
+## [21,] "REAL_ESTATE"     
+## [22,] "PROP_UNKN_NONE"  
+## [23,] "AGE"             
+## [24,] "OTHER_INSTALL"   
+## [25,] "RENT"            
+## [26,] "OWN_RES"         
+## [27,] "NUM_CREDITS"     
+## [28,] "JOB"             
+## [29,] "NUM_DEPENDENTS"  
+## [30,] "TELEPHONE"       
+## [31,] "FOREIGN"         
+## [32,] "RESPONSE"
+head(GCdummynn) #Verify Conversion
+##   OBS. CHK_ACCT DURATION HISTORY NEW_CAR USED_CAR FURNITURE RADIO.TV EDUCATION
+## 1    1        0        6       4       0        0         0        1         0
+## 2    2        1       48       2       0        0         0        1         0
+## 3    3        3       12       4       0        0         0        0         1
+## 4    4        0       42       2       0        0         1        0         0
+## 5    5        0       24       3       1        0         0        0         0
+## 6    6        3       36       2       0        0         0        0         1
+##   RETRAINING AMOUNT SAV_ACCT EMPLOYMENT INSTALL_RATE MALE_DIV MALE_SINGLE
+## 1          0   1169        4          4            4        0           1
+## 2          0   5951        0          2            2        0           0
+## 3          0   2096        0          3            2        0           1
+## 4          0   7882        0          3            2        0           1
+## 5          0   4870        0          2            3        0           1
+## 6          0   9055        4          2            2        0           1
+##   MALE_MAR_or_WID CO.APPLICANT GUARANTOR PRESENT_RESIDENT REAL_ESTATE
+## 1               0            0         0                4           1
+## 2               0            0         0                2           1
+## 3               0            0         0                3           1
+## 4               0            0         1                4           0
+## 5               0            0         0                4           0
+## 6               0            0         0                4           0
+##   PROP_UNKN_NONE AGE OTHER_INSTALL RENT OWN_RES NUM_CREDITS JOB NUM_DEPENDENTS
+## 1              0  67             0    0       1           2   2              1
+## 2              0  22             0    0       1           1   2              1
+## 3              0  49             0    0       1           1   1              2
+## 4              0  45             0    0       0           1   2              2
+## 5              1  53             0    0       0           2   2              2
+## 6              1  35             0    0       0           1   1              2
+##   TELEPHONE FOREIGN RESPONSE
+## 1         1       0        1
+## 2         0       0        0
+## 3         0       0        1
+## 4         0       0        1
+## 5         0       0        0
+## 6         1       0        1
+GCdummynn <- GCdummynn[, -15:-17]
+#Create partition
+nntrain.index <- sample(c(1:dim(GCdummynn)[1]), 
+                      dim(GCdummynn)[1]*0.6) 
+NNtrain.df <- GCdummynn[nntrain.index, ] #Training partition
+NNvalid.df <- GCdummynn[-nntrain.index, ] #Validation partition
+#Build Training Neural Network Model
+nn = neuralnet(RESPONSE ~ CHK_ACCT + DURATION + SAV_ACCT + HISTORY + AMOUNT,
+               data = NNtrain.df, hidden = 2, 
+               err.fct = "ce", 
+               linear.output = FALSE) #Training model
+
+plot(nn, rep = "best") #View training Network
+  
+#Build Validation Neural Network Model
+nnvalid = neuralnet(RESPONSE ~ CHK_ACCT + DURATION + SAV_ACCT + HISTORY + AMOUNT,
+                    data = NNvalid.df, hidden = 2, 
+                    err.fct = "ce", linear.output = FALSE) #Validation Model
+plot(nnvalid, rep = "best") #View validation network
+  
+#Neural Network Performance evaluation
+nn3 = ifelse(nn$net.result[[1]]>0.5, 1, 0)
+nn3[1:6] #first 6 rows
+## [1] 1 1 1 1 1 1
+misClasificationError = mean(NNtrain.df$RESPONSE !=nn3)
+misClasificationError
+## [1] 0.2933333
+nn4 = ifelse(nnvalid$net.result[[1]]>0.5, 1, 0)
+nn4[1:6] #first 6 rows
+## [1] 1 1 1 1 1 1
+misClasificationError.valid = mean(Nnvalid.df$RESPONSE !=nn4)
+misClasificationError.valid
+## [1] 0.31
+German Credit Worthiness
+   The German Credit data set will be analyzed to determine credit worthiness. Determining credit worthiness is crucial to mitigating credit risk for the lender (Bai et al., 2019, p. 26). Two types of classification models will be used to determine which demographic characteristics are related to credit worthiness (Yap et al., 2011, p. 13274). The variables will be investigated using the regression tree (CART) and neural network data mining methods.
+The Process
+   The data set was saved as a .csv file. A new R script was opened, and the working directory was set to the source file location option under the Session tab. A data frame was created using the read.csv() function to load the data set into the data frame.
+   Table 2.3 of the class textbook was referenced for the exploratory functions (Shumeli et al., 2018, p. 23). View() was executed to explore the column variables in the data frame. The dim() function was executed to determine the number of observations and variables in the data set. Summary() was executed to view the summary statistics of each column. Head() was executed to display the first 6 rows of each column. The response column is selected to display the first 10 rows using the [1:10, 32] command. The output displays 0 and 1. 1 indicates “yes” response and 0 indicates a “no” response. Therefore, the response variable is found to be categorical. The response variable is decided to be the outcome variable for the regression tree and neural network.
+   The categorical and binary variables were converted into “dummy variables” by following the example in Table 2.6 (Shumeli et al., 2018, p. 26). The original data frame was converted into a matrix using model.matrix() (Shumeli et al., 2018, p. 28). The matrix was saved into a data frame using as.data.frame() (Shumeli et al., 2018, p. 28). The names of the dummy variables were verified using t(t(names())) and head(). The dummy data frame was used to partition the data set for creating the regression tree model.
+   Before creating the regression tree model, the rpart, rpart.plot, and caret libraries were loaded. A 60% sample was removed from the dummy data frame to create the train index. The train index was used to create the training and validation data frames. The training data frame regression tree was created by executing rpart() with the response variable as the outcome and all of the rest of the data set variables were the predictors. To keep the tree more readable, minbucket was set equal to 20 per the suggestion of Dr. M. Missakian (Personal Communication, October 8, 2022). The tree was viewed using prp(). The validation data frame regression tree was created with the same variables.
+   The performance of the tree model was evaluated using the predict() and table() functions as was presented in the CART in R Youtube tutorial (O’Hair, 2017). The correct values from the confusion matrix output were added together and divided by the sum of the entire table output. The first value obtained was 65% for the training data frame. To improve the performance, the list of variables was reviewed to see what variables may be removed. A correlation matrix was unsuccessfully attempted to decide what variables could be removed. The three gender variables for marital status were removed as they were thought to be irrelevant. The dummy data frame was modified by removing columns 15 to 17 per the example found in the textbook at Table 2.6 (Shumeli et al., 2018, p. 28). The model was executed again and the performance measurement for the training data frame improved to 77%.
+   The first step to creating the neural network was to install the neural net package and load the libraries neuralnet and nnet. The textbook’s coding example in Table 11.6 was attempted to unsuccessfully (Shumeli et al., 2018, p. 283). Dummy Variables were created in the same manner that worked for the CART model. Columns 15 through 17 were omitted successfully. When additional columns were added for removal, the dummy data frame would fail. The data was partitioned the same way it was for the CART model. A sample was removed from the dummy data frame and both the training and validation data frames were created.
+   The neuralnet() function coded with the “response” variable as the output variable and the entire dummy data frame as the predictor variables. Individual variables were selected from the output of the training CART results. This step too multiple attempts because an error code said that the columns were undefined in R. Once the variable were copied and pasted from the “Environment” window, the code was successfully executed in the R script. The NNtrain data frame was selected for the training neural network with the hidden layer set equal to 2 and the linear output as false. Plot() was used to view the training neural network. The same procedure was repeated for the neural net validation data frame.
+   The performance of the model was evaluated using the misClasificationError method as described in a Neural Network YouTube tutorial (Hasheminia, 2015). The confusion matrix method that was used for the CART model evaluation was also used for the performance evaluation. However, the output was not straightforward like the CART table’s output where an accuracy equation was able to be performed. There were several columns and rows in the output instead of two columns and two rows. Therefore, the misClassificationError was the successful evaluation method.
+   The next problem arose when attempting to Knit the document to word. Running the code in RMarkdown had issues at the neural network chunk. The error code read that “rtools” needed to be installed. However, the package had to be downloaded from the cran.rstudio website instead of through the install.packages() function. The installation proved challenging as following the instructions did not work initially. The “jsonlite” library was loaded because an error saying there is no library for “rtools” would result. Several minutes after running the required code from cran.rstudio, RMarkdown finally ran the neural network chunk and the document was knitted to Word.
+Model Analysis
+   The classification tree accuracy rating was 82% for the validation partition. Removing columns 15 through 17 improved the model by almost 12%. The tree from the training data found that credit worthiness could be determined from the following variables: checking account <2, duration>= 23, history<2, savings account<2, and property ownership status=1. For example, if an applicant has less than 2 checking accounts, a credit duration of greater than or equal to 23 months, a history of 2 credits paid then the applicant is worthy. The validation partition’s tree found that credit worthiness is determined by the following variables: checking account<2, history<3, amount>= 7034, checking account <1, and amount < 2492. The validation tree appears to be more fine-tuned and only requiring the number of checking accounts, the history, and the amount to determine credit worthiness.
+   The result of the training neural net show intercept values ranging from -0.4 to 1.1. The error rate for the training neural network was improved from 29% to 27% when the variables from the training CART were used as predictors instead of the entire variable list. The training neural net Error result was 256 with 36 steps. The result of the validation neural network shows intercept values of -0.6, -0.4, and 0.4. The validation’s neural network misclassification value was 34%. This was puzzling because the neural network model’s error outcome is the opposite of accuracy obtained from the CART model. The CART model’s accuracy improved between the training data to the validation data. The same misclassification error resulted when other variables were attempted.
+Conclusion
+   The CART model was found to be the most accurate method and was less frustrating to execute because the textbook’s examples worked with this data set. The neural network was difficult to code initially, but once the jsonlite library was loaded it worked. The textbook’s example in Table 11.6 was frustrating to follow with little explanation as to what and why steps were taken. There are only a few comments on the table and that may be why the coding could not be tailored to the German Credit data set. For future analysis, perhaps a linear regression would work better than a neural network for this data set.
+References
+Bai, C., Shi, B., Liu, F., & Sarkis, J. (2019). Banking credit worthiness: Evaluating the
+    complex relationships. Omega, 83, 26–38.   
+    https://doi.org/10.1016/j.omega.2018.02.001
+
+Hasheminia, H. (2015). R-Session 11 – Statistical Learning – Neural Networks.
+    YouTube.com. https://www.youtube.com/watch?v=lTMqXSSjCvk
+
+O’hair, A. (2017). MIT 15.071 The Analytics Edge, Spring 2017. 4.2.7 An Introduction
+    to Trees- Video 4: CART in R. YouTube.com.    
+    https://www.youtube.com/watch?v=JvtqThS69bw
+
+Shumeli, G., Bruce, P. C., Yahav, I., Patel, N. R., Lichtendahl, K. C., & Jr. (2018). Data
+    Mining for Business Analytics. Wiley & Sons. Retrieved from https://platform.virdocs.com/r/s/0/doc/503437/sp/21743561/mi/74416509?cfi=%2F4%2F2%2F8%2F8%2F4%2C%2F7%3A188%2C%2F7%3A188&menu=table-of-contents
+
+Yap, B. W., Ong, S. H., & Husain, N. H. M. (2011). Using data mining to improve
+   assessment of credit worthiness via credit scoring models. Expert Systems with  
+   Applications, 38(10), 13274–13283. https://doi.org/10.1016/j.eswa.2011.04.147
+
+
